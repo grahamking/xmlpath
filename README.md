@@ -1,4 +1,8 @@
 Installation and usage
 ----------------------
 
-See [gopkg.in/xmlpath.v1](https://gopkg.in/xmlpath.v1) for documentation and usage details.
+Forked from: https://github.com/go-xmlpath/xmlpath
+
+Install: `go get github.com/grahamking/xmlpath`
+
+Documentation: http://godoc.org/github.com/grahamking/xmlpath
