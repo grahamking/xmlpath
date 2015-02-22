@@ -5,9 +5,9 @@ import (
 	"encoding/xml"
 	"testing"
 
+	"strings"
 	. "gopkg.in/check.v1"
 	"gopkg.in/xmlpath.v2"
-	"strings"
 )
 
 func Test(t *testing.T) {
@@ -245,6 +245,10 @@ var libraryTable = []struct {
 	{"//character[starts-with(@id, 'noopy')]/name", exists(false)},
 	{"//title[starts-with(.,'Barney Goo')]", "Barney Google and Snuffy Smith"},
 	{"//title[starts-with(., 'noopy')]", exists(false)},
+	{"library/book[not(@id='b0883556316')]/isbn", []string{"0836217462"}},
+	{"library/book/character[not(@id='Snoopy' and ./born='1950-10-04')]", exists(true)},
+	{"library/book/character[@id='Snoopy' and ./born='1950-10-04' or not(@id='Lucy') and ./born='1952-03-03']/born", []string{"1950-10-04"}},
+	{"library/book[@id='b0836217462']/character[not(@id='Snoopy' and ./born='1950-10-04' or @id='Lucy' and ./born='1952-03-03')]/born", []string{"1966-08-22", "1951-05-30"}},
 
 	// Multiple predicates.
 	{"library/book/character[@id='Snoopy' and ./born='1950-10-04']/born", []string{"1950-10-04"}},
@@ -268,7 +272,7 @@ var libraryTable = []struct {
 }
 
 var libraryXml = []byte(`
-<?xml version="1.0"?> 
+<?xml version="1.0"?>
 <library>
   <!-- Great book. -->
   <book id="b0836217462" available="true">
