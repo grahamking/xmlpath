@@ -6,8 +6,9 @@ import (
 	"testing"
 
 	"strings"
+
+	"github.com/grahamking/xmlpath"
 	. "gopkg.in/check.v1"
-	"gopkg.in/xmlpath.v2"
 )
 
 func Test(t *testing.T) {
